@@ -3,20 +3,48 @@
 <head>
     <title>Relay Control</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #565656;
+            font-family: Inter;
+        }
+        .control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40vw;
+            height: 20vh;
+            margin: 1em;
+            background: linear-gradient(180deg, #3D3A3A 0%, rgba(125.57, 125.57, 125.57, 0) 100%);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 50%;
+            border: 1px #3A2424 solid;
+            color: white;
+            font-size: 2vw;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Relay Control</h1>
-    <button onclick="controlRelay(2, 'on')">Turn Relay 2 On</button>
-    <button onclick="controlRelay(2, 'off')">Turn Relay 2 Off</button>
-    <button onclick="controlRelay(3, 'on')">Turn Relay 3 On</button>
-    <button onclick="controlRelay(3, 'off')">Turn Relay 3 Off</button>
-    <button onclick="controlRelay(4, 'on')">Turn Relay 4 On</button>
-    <button onclick="controlRelay(4, 'off')">Turn Relay 4 Off</button>
-    <button onclick="controlRelay(5, 'on')">Turn Relay 5 On</button>
-    <button onclick="controlRelay(5, 'off')">Turn Relay 5 Off</button>
+    <div id="clothesButton" class="control" onclick="controlRelay(2)">Clothes</div>
+    <div id="rackButton" class="control" onclick="controlRelay(4)">Server Rack</div>
 
     <script>
-        function controlRelay(id, action) {
+        var relayStates = {
+            2: 'off',
+            4: 'off'
+        };
+
+        function controlRelay(id) {
+            var action = relayStates[id] === 'on' ? 'off' : 'on';
+            relayStates[id] = action;
             $.post('/relay/' + id + '/' + action, function(data) {
                 alert(data);
             });
