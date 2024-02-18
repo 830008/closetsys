@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relay Control</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Relay Control</h1>
+    <button onclick="controlRelay(2, 'on')">Turn Relay 2 On</button>
+    <button onclick="controlRelay(2, 'off')">Turn Relay 2 Off</button>
+    <button onclick="controlRelay(3, 'on')">Turn Relay 3 On</button>
+    <button onclick="controlRelay(3, 'off')">Turn Relay 3 Off</button>
+    <button onclick="controlRelay(4, 'on')">Turn Relay 4 On</button>
+    <button onclick="controlRelay(4, 'off')">Turn Relay 4 Off</button>
+    <button onclick="controlRelay(5, 'on')">Turn Relay 5 On</button>
+    <button onclick="controlRelay(5, 'off')">Turn Relay 5 Off</button>
+
+    <script>
+        function controlRelay(id, action) {
+            $.post('/relay/' + id + '/' + action, function(data) {
+                alert(data);
+            });
+        }
+    </script>
+</body>
+</html>
