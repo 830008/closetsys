@@ -54,6 +54,8 @@
         function rackToggle() {
             var action = states.rack === 'on' ? 'off' : 'on';
             states.rack = action;
+            relayStates[4] = action;
+            relayStates[5] = opposite[action];
             $.post('/relay/4/' + action, function(data) {
                 $.post('/relay/5/' + opposite[action], function(data) {
                     alert(data);
@@ -64,6 +66,8 @@
         function clothesToggle() {
             var action = states.rack === 'on' ? 'off' : 'on';
             states.rack = action;
+            relayStates[2] = action;
+            relayStates[3] = opposite[action];
             $.post('/relay/2/' + action, function(data) {
                 $.post('/relay/3/' + opposite[action], function(data) {
                     alert(data);
