@@ -83,7 +83,7 @@
             });
         }
         function rackStop() {
-            var action = states.rack === 'off'
+            var action = 'off'
             $.post('/relay/4/' + action, function(data) {
                 $.post('/relay/5/' + action, function(data) {
                     alert("Rack Stopped")
@@ -104,7 +104,7 @@
             });
         }
         function clothesStop() {
-            var action = states.rack === 'off'
+            var action = "off"
             $.post('/relay/2/' + action, function(data) {
                 $.post('/relay/3/' + action, function(data) {
                     alert("Clothes Stopped")
