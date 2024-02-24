@@ -20,6 +20,13 @@ board.on('ready', () => {
         relay.open();
         res.send('Relay ' + id + ' is off');
     });
+    app.post('/estop', (req, res) => {
+        relay2.open();
+        relay3.open();
+        relay4.open();
+        relay5.open();
+        res.send('Emergency stop');
+    });
 
     app.listen(3000, () => {
         console.log('Server started on http://localhost:3000');
