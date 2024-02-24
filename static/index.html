@@ -33,15 +33,44 @@
     </style>
 </head>
 <body>
-    <div id="clothesButton" class="control" onclick="controlRelay(2)">Clothes</div>
-    <div id="rackButton" class="control" onclick="controlRelay(4)">Server Rack</div>
+    <div id="clothesButton" class="control" onclick="clothesToggle()">Clothes</div>
+    <div id="rackButton" class="control" onclick="rackToggle()">Server Rack</div>
 
     <script>
+        var states = {
+            clothes: 'off',
+            rack: 'off'
+        }
         var relayStates = {
             2: 'off',
-            4: 'off'
+            3: 'off',
+            4: 'off',
+            5: 'off'
         };
-
+        var opposite = {
+            on: 'off',
+            off: 'on'
+        }
+        function rackToggle() {
+            var action = states.rack === 'on' ? 'off' : 'on';
+            states.rack = action;
+            $.post('/relay/4/' + action, function(data) {
+                $.post('/relay/5/' + opposite[action], function(data) {
+                    alert(data);
+                });
+                
+            });
+        }
+        function clothesToggle() {
+            var action = states.rack === 'on' ? 'off' : 'on';
+            states.rack = action;
+            $.post('/relay/2/' + action, function(data) {
+                $.post('/relay/3/' + opposite[action], function(data) {
+                    alert(data);
+                });
+                
+            });
+        }
         function controlRelay(id) {
             var action = relayStates[id] === 'on' ? 'off' : 'on';
             relayStates[id] = action;
